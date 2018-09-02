@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="myDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="myDatabaseModelStoreContainer">
+          <EntitySet Name="tb_Terminals" EntityType="myDatabaseModel.Store.tb_Terminals" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_TmlStatus" EntityType="myDatabaseModel.Store.tb_TmlStatus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_Users" EntityType="myDatabaseModel.Store.tb_Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tb_Warning" EntityType="myDatabaseModel.Store.tb_Warning" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_tb_Terminals_tb_TmlStatus" Association="myDatabaseModel.Store.FK_tb_Terminals_tb_TmlStatus">
+            <End Role="tb_TmlStatus" EntitySet="tb_TmlStatus" />
+            <End Role="tb_Terminals" EntitySet="tb_Terminals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Warning_tb_Terminals" Association="myDatabaseModel.Store.FK_tb_Warning_tb_Terminals">
+            <End Role="tb_Terminals" EntitySet="tb_Terminals" />
+            <End Role="tb_Warning" EntitySet="tb_Warning" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tb_Terminals">
+          <Key>
+            <PropertyRef Name="tmlID" />
+          </Key>
+          <Property Name="tmlID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneNumber" Type="nchar" Nullable="false" MaxLength="11" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="TmlStusID" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_TmlStatus">
+          <Key>
+            <PropertyRef Name="TmlStusID" />
+          </Key>
+          <Property Name="TmlStusID" Type="smallint" Nullable="false" />
+          <Property Name="TmlStusName" Type="nvarchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tb_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Rank" Type="nvarchar" MaxLength="10" />
+          <Property Name="PopedomID" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Warning">
+          <Key>
+            <PropertyRef Name="WrnID" />
+          </Key>
+          <Property Name="WrnID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReportTime" Type="datetime" Nullable="false" />
+          <Property Name="HandleTime" Type="datetime" />
+          <Property Name="tmlID" Type="int" Nullable="false" />
+          <Property Name="HandleResult" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tb_Terminals_tb_TmlStatus">
+          <End Role="tb_TmlStatus" Type="myDatabaseModel.Store.tb_TmlStatus" Multiplicity="0..1" />
+          <End Role="tb_Terminals" Type="myDatabaseModel.Store.tb_Terminals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_TmlStatus">
+              <PropertyRef Name="TmlStusID" />
+            </Principal>
+            <Dependent Role="tb_Terminals">
+              <PropertyRef Name="TmlStusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Warning_tb_Terminals">
+          <End Role="tb_Terminals" Type="myDatabaseModel.Store.tb_Terminals" Multiplicity="1" />
+          <End Role="tb_Warning" Type="myDatabaseModel.Store.tb_Warning" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Terminals">
+              <PropertyRef Name="tmlID" />
+            </Principal>
+            <Dependent Role="tb_Warning">
+              <PropertyRef Name="tmlID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="myDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="myDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_Terminals" EntityType="myDatabaseModel.tb_Terminals" />
+          <EntitySet Name="tb_TmlStatus" EntityType="myDatabaseModel.tb_TmlStatus" />
+          <EntitySet Name="tb_Users" EntityType="myDatabaseModel.tb_Users" />
+          <EntitySet Name="tb_Warning" EntityType="myDatabaseModel.tb_Warning" />
+          <AssociationSet Name="FK_tb_Terminals_tb_TmlStatus" Association="myDatabaseModel.FK_tb_Terminals_tb_TmlStatus">
+            <End Role="tb_TmlStatus" EntitySet="tb_TmlStatus" />
+            <End Role="tb_Terminals" EntitySet="tb_Terminals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Warning_tb_Terminals" Association="myDatabaseModel.FK_tb_Warning_tb_Terminals">
+            <End Role="tb_Terminals" EntitySet="tb_Terminals" />
+            <End Role="tb_Warning" EntitySet="tb_Warning" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tb_Terminals">
+          <Key>
+            <PropertyRef Name="tmlID" />
+          </Key>
+          <Property Name="tmlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" Unicode="true" FixedLength="true" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="TmlStusID" Type="Int16" />
+          <Property Name="Remark" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tb_TmlStatus" Relationship="myDatabaseModel.FK_tb_Terminals_tb_TmlStatus" FromRole="tb_Terminals" ToRole="tb_TmlStatus" />
+          <NavigationProperty Name="tb_Warning" Relationship="myDatabaseModel.FK_tb_Warning_tb_Terminals" FromRole="tb_Terminals" ToRole="tb_Warning" />
+        </EntityType>
+        <EntityType Name="tb_TmlStatus">
+          <Key>
+            <PropertyRef Name="TmlStusID" />
+          </Key>
+          <Property Name="TmlStusID" Type="Int16" Nullable="false" />
+          <Property Name="TmlStusName" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tb_Terminals" Relationship="myDatabaseModel.FK_tb_Terminals_tb_TmlStatus" FromRole="tb_TmlStatus" ToRole="tb_Terminals" />
+        </EntityType>
+        <EntityType Name="tb_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="NickName" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Rank" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="PopedomID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tb_Warning">
+          <Key>
+            <PropertyRef Name="WrnID" />
+          </Key>
+          <Property Name="WrnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportTime" Type="DateTime" Nullable="false" />
+          <Property Name="HandleTime" Type="DateTime" />
+          <Property Name="tmlID" Type="Int32" Nullable="false" />
+          <Property Name="HandleResult" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tb_Terminals" Relationship="myDatabaseModel.FK_tb_Warning_tb_Terminals" FromRole="tb_Warning" ToRole="tb_Terminals" />
+        </EntityType>
+        <Association Name="FK_tb_Terminals_tb_TmlStatus">
+          <End Role="tb_TmlStatus" Type="myDatabaseModel.tb_TmlStatus" Multiplicity="0..1" />
+          <End Role="tb_Terminals" Type="myDatabaseModel.tb_Terminals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_TmlStatus">
+              <PropertyRef Name="TmlStusID" />
+            </Principal>
+            <Dependent Role="tb_Terminals">
+              <PropertyRef Name="TmlStusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Warning_tb_Terminals">
+          <End Role="tb_Terminals" Type="myDatabaseModel.tb_Terminals" Multiplicity="1" />
+          <End Role="tb_Warning" Type="myDatabaseModel.tb_Warning" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Terminals">
+              <PropertyRef Name="tmlID" />
+            </Principal>
+            <Dependent Role="tb_Warning">
+              <PropertyRef Name="tmlID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="myDatabaseModelStoreContainer" CdmEntityContainer="myDatabaseEntities">
+          <EntitySetMapping Name="tb_Terminals"><EntityTypeMapping TypeName="myDatabaseModel.tb_Terminals"><MappingFragment StoreEntitySet="tb_Terminals">
+            <ScalarProperty Name="tmlID" ColumnName="tmlID" />
+            <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+            <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+            <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+            <ScalarProperty Name="TmlStusID" ColumnName="TmlStusID" />
+            <ScalarProperty Name="Remark" ColumnName="Remark" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tb_TmlStatus"><EntityTypeMapping TypeName="myDatabaseModel.tb_TmlStatus"><MappingFragment StoreEntitySet="tb_TmlStatus">
+            <ScalarProperty Name="TmlStusID" ColumnName="TmlStusID" />
+            <ScalarProperty Name="TmlStusName" ColumnName="TmlStusName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tb_Users"><EntityTypeMapping TypeName="myDatabaseModel.tb_Users"><MappingFragment StoreEntitySet="tb_Users">
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+            <ScalarProperty Name="NickName" ColumnName="NickName" />
+            <ScalarProperty Name="Password" ColumnName="Password" />
+            <ScalarProperty Name="Rank" ColumnName="Rank" />
+            <ScalarProperty Name="PopedomID" ColumnName="PopedomID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tb_Warning"><EntityTypeMapping TypeName="myDatabaseModel.tb_Warning"><MappingFragment StoreEntitySet="tb_Warning">
+            <ScalarProperty Name="WrnID" ColumnName="WrnID" />
+            <ScalarProperty Name="ReportTime" ColumnName="ReportTime" />
+            <ScalarProperty Name="HandleTime" ColumnName="HandleTime" />
+            <ScalarProperty Name="tmlID" ColumnName="tmlID" />
+            <ScalarProperty Name="HandleResult" ColumnName="HandleResult" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DataModel">
+        <EntityTypeShape EntityType="myDatabaseModel.tb_Terminals" Width="1.5" PointX="3" PointY="1" Height="2.5430916341145826" IsExpanded="true" />
+        <EntityTypeShape EntityType="myDatabaseModel.tb_TmlStatus" Width="1.5" PointX="0.75" PointY="1.375" Height="1.5879931640624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="myDatabaseModel.tb_Users" Width="1.5" PointX="2.75" PointY="4.75" Height="2.1610522460937496" IsExpanded="true" />
+        <EntityTypeShape EntityType="myDatabaseModel.tb_Warning" Width="1.5" PointX="5.25" PointY="1.125" Height="2.1610522460937496" IsExpanded="true" />
+        <AssociationConnector Association="myDatabaseModel.FK_tb_Terminals_tb_TmlStatus" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.16899658203125" />
+          <ConnectorPoint PointX="3" PointY="2.16899658203125" />
+        </AssociationConnector>
+        <AssociationConnector Association="myDatabaseModel.FK_tb_Warning_tb_Terminals" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.2055261230468748" />
+          <ConnectorPoint PointX="5.25" PointY="2.2055261230468748" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
